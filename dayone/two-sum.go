@@ -19,21 +19,18 @@ func twoSum(nums []int, target int) []int {
 
 // twoSumWithHashmap uses O(n)
 func twoSumWithHashmap(nums []int, target int) []int {
-	// create empty store map.
-	store := make(map[int]int)
-	// range through nums
-	for index, firstElement := range nums {
-		secondElement := target - firstElement
-		if jndex, ok := store[secondElement]; ok {
-			return []int{jndex, index}
-		}
+	// create the empty map for storing
+	mapStore := make(map[int]int)
 
-		store[firstElement] = index
+	// now iterate through nums with the first elemnent
+	for index, firstElement := range nums {
+		// find second element using O(n)
+		secondElement := target - firstElement
+		if secondIndex, ok := mapStore[secondElement]; ok {
+			return []int{secondIndex, index}
+		}
+		mapStore[firstElement] = index
 	}
 
 	return nil
 }
-
-//func twosumbruteforce(nums []int, target int) []int {
-//
-//}
