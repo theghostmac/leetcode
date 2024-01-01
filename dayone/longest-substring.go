@@ -1,30 +1,30 @@
 package dayone
 
-func lengthOfLongestSubstring(s string) int {
-	// initialize the max length
-	// initialize left and right boundaries
-	maxLen := 0
-	left := 0
-	charMap := make(map[byte]int)
+func lenOfSubString(s string) int {
+	freqMap := make(map[byte]int)
+	previousChar := 0
+	maxLength := 0
 
-	for right := 0; right < len(s); right++ {
-		char := s[right]
-		charMap[char]++
+	// loop over s characters
+	for character := 0; character < len(s); character++ {
+		// go through the characters and add them to a frequency map.
+		characterCount := s[character]
+		freqMap[characterCount]++
 
-		for charMap[char] > 1 {
-			// Shrink the window from the left until no duplicates
-			leftChar := s[left]
-			charMap[leftChar]--
-			left++
+		// find any duplicated character and shrink the list just before a duplicate.
+		for freqMap[characterCount] > 1 {
+			prevChar := s[previousChar]
+			freqMap[prevChar]--
+			previousChar++
 		}
 
-		maxLen = max(maxLen, right-left+1)
+		maxLength = findMaxLength(maxLength, character-previousChar+1)
 	}
 
-	return maxLen
+	return maxLength
 }
 
-func max(a, b int) int {
+func findMaxLength(a, b int) int {
 	if a > b {
 		return a
 	}
