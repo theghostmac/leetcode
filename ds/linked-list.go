@@ -1,6 +1,8 @@
 package ds
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Node struct {
 	Value int
@@ -42,27 +44,39 @@ func (ll *LinkedList) InsertNewNode(value int) {
 }
 
 func (ll *LinkedList) InsertNodeAtPosition(value int, position int) {
-	ll.TraverseToX(position)
+	if position < 0 {
+		fmt.Println("invalid position: position cannot be negative")
+		return
+	}
 
+	if position == 0 {
+		ll.InsertNewNode(value)
+		return
+	}
+
+	previousNode, currentNode := ll.TraverseToX(position - 1)
+	
 	newNode := &Node{
 		Value: value,
+		Next: currentNode,
 	}
 }
 
 func (ll *LinkedList) TraverseToX(x int) (*Node, *Node) {
 	if x < 0 {
-		fmt.Println("Invalid position: position cannot be negative")
+		fmt.Println("invalid operation: p")
 		return nil, nil
 	}
-
-	var prevNode *Node = nil
+	
+	var previousNode *Node = nil
 	currentNode := ll.Head
+
 	for i := 1; i <= x && currentNode != nil; i++ {
-		prevNode = currentNode
+		previousNode = currentNode
 		currentNode = currentNode.Next
 	}
 
-	return prevNode, currentNode
+	return previousNode, currentNode
 }
 
 func (ll *LinkedList) DeleteNode() {}
