@@ -41,10 +41,30 @@ func (ll *LinkedList) InsertNewNode(value int) {
 	ll.Head = newNode
 }
 
-func (ll *LinkedList) InsertNodeAtPosition(value int, position int) {}
+func (ll *LinkedList) InsertNodeAtPosition(value int, position int) {
+	ll.TraverseToX(position)
+
+	newNode := &Node{
+		Value: value,
+	}
+}
+
+func (ll *LinkedList) TraverseToX(x int) (*Node, *Node) {
+	if x < 0 {
+		fmt.Println("Invalid position: position cannot be negative")
+		return nil, nil
+	}
+
+	var prevNode *Node = nil
+	currentNode := ll.Head
+	for i := 1; i <= x && currentNode != nil; i++ {
+		prevNode = currentNode
+		currentNode = currentNode.Next
+	}
+
+	return prevNode, currentNode
+}
 
 func (ll *LinkedList) DeleteNode() {}
 
 func (ll *LinkedList) SearchNode() {}
-
-func (ll *LinkedList) Traverse() {}
