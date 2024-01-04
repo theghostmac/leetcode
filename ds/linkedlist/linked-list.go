@@ -70,6 +70,21 @@ func (ll *LinkedList) InsertNodeAtPosition(value int, position int) {
 	previousNode.Next = newNode
 }
 
+func (ll *LinkedList) DeleteDuplicates(node *Node) *Node {
+	currentNode := node
+	for currentNode != nil && currentNode.Next != nil {
+		runner := currentNode.Next
+		for runner != nil && runner.Value == currentNode.Value {
+			runner = runner.Next
+		}
+
+		currentNode.Next = runner
+		currentNode = currentNode.Next
+	}
+
+	return node
+}
+
 func (ll *LinkedList) TraverseToX(x int) (*Node, *Node) {
 	if x < 0 {
 		fmt.Println("invalid operation: p")
