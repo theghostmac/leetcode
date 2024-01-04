@@ -1,4 +1,4 @@
-package ds
+package linkedlist
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 
 type Node struct {
 	Value int
-	Next *Node
+	Next  *Node
 }
 
 type LinkedList struct {
@@ -31,15 +31,16 @@ func (ll *LinkedList) String() string {
 	}
 
 	str += "nil"
+
 	return str
 }
 
 func (ll *LinkedList) InsertNewNode(value int) {
 	newNode := &Node{
 		Value: value,
-		Next: ll.Head,
+		Next:  ll.Head,
 	}
-	
+
 	ll.Head = newNode
 }
 
@@ -55,11 +56,18 @@ func (ll *LinkedList) InsertNodeAtPosition(value int, position int) {
 	}
 
 	previousNode, currentNode := ll.TraverseToX(position - 1)
-	
+
+	if currentNode == nil {
+		fmt.Println("Invalid position: Position exceeds list length.")
+		return
+	}
+
 	newNode := &Node{
 		Value: value,
-		Next: currentNode,
+		Next:  currentNode,
 	}
+
+	previousNode.Next = newNode
 }
 
 func (ll *LinkedList) TraverseToX(x int) (*Node, *Node) {
@@ -67,7 +75,7 @@ func (ll *LinkedList) TraverseToX(x int) (*Node, *Node) {
 		fmt.Println("invalid operation: p")
 		return nil, nil
 	}
-	
+
 	var previousNode *Node = nil
 	currentNode := ll.Head
 
