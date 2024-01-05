@@ -70,21 +70,6 @@ func (ll *LinkedList) InsertNodeAtPosition(value int, position int) {
 	previousNode.Next = newNode
 }
 
-func (ll *LinkedList) DeleteDuplicates(node *Node) *Node {
-	currentNode := node
-	for currentNode != nil && currentNode.Next != nil {
-		runner := currentNode.Next
-		for runner != nil && runner.Value == currentNode.Value {
-			runner = runner.Next
-		}
-
-		currentNode.Next = runner
-		currentNode = currentNode.Next
-	}
-
-	return node
-}
-
 func (ll *LinkedList) TraverseToX(x int) (*Node, *Node) {
 	if x < 0 {
 		fmt.Println("invalid operation: p")
@@ -100,6 +85,48 @@ func (ll *LinkedList) TraverseToX(x int) (*Node, *Node) {
 	}
 
 	return previousNode, currentNode
+}
+
+func (ll *LinkedList) DeleteDuplicates(node *Node) *Node {
+	currentNode := node
+
+	for currentNode != nil && currentNode.Next != nil {
+		runner := currentNode.Next
+		for runner != nil && runner.Value == currentNode.Value {
+			runner = runner.Next
+		}
+
+		currentNode.Next = runner
+		currentNode = currentNode.Next
+	}
+
+	return node
+}
+
+func (ll *LinkedList) MergeTwoLists(l1, l2 *LinkedList) *LinkedList {
+	mergedList := NewLinkedList(0) // create empty linkedlist.
+	currentNode := mergedList.Head
+
+	p1, p2 := l1.Head, l2.Head
+
+	for p1 != nil && p2 != nil {
+		if p1.Value < p2.Value {
+			currentNode.Next = p1
+			p1 = p1.Next
+		} else {
+			currentNode.Next = p2
+			p2 = p2.Next
+		}
+		currentNode = currentNode.Next
+	}
+
+	if p1 != nil {
+		currentNode.Next = p1
+	} else {
+		currentNode.Next = p2
+	}
+
+	return mergedList
 }
 
 func (ll *LinkedList) DeleteNode() {}
