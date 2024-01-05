@@ -103,13 +103,17 @@ func (ll *LinkedList) DeleteDuplicates(node *Node) *Node {
 	return node
 }
 
-func (ll *LinkedList) MergeTwoLists(l1, l2 *LinkedList) *LinkedList {
-	mergedList := NewLinkedList(0) // create empty linkedlist.
+func (ll *LinkedList) MergeTwoSortedLists(l1, l2 *LinkedList) *LinkedList {
+	// create a new empty linked list.
+	mergedList := NewLinkedList(0)
 	currentNode := mergedList.Head
 
+	// initialize two pointers to the head of both l1 & l2.
 	p1, p2 := l1.Head, l2.Head
 
+	// iterate through both lists simulatanously.
 	for p1 != nil && p2 != nil {
+		// if p1's value is smaller, add to the merged list, then advance to the next node.
 		if p1.Value < p2.Value {
 			currentNode.Next = p1
 			p1 = p1.Next
@@ -117,15 +121,18 @@ func (ll *LinkedList) MergeTwoLists(l1, l2 *LinkedList) *LinkedList {
 			currentNode.Next = p2
 			p2 = p2.Next
 		}
+
 		currentNode = currentNode.Next
 	}
 
+	// if either pointer reaches the end of its list, add the remaining nodes of the second list to the merged list.
 	if p1 != nil {
 		currentNode.Next = p1
 	} else {
 		currentNode.Next = p2
 	}
 
+	// return the merged list.
 	return mergedList
 }
 
