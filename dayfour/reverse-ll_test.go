@@ -1,7 +1,7 @@
 package dayfour
 
 import (
-    "testing"
+	"testing"
 )
 
 func Test_ReverseLinkedList(t *testing.T) {
