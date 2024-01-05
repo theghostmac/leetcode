@@ -139,3 +139,8 @@ func (ll *LinkedList) MergeTwoSortedLists(l1, l2 *LinkedList) *LinkedList {
 func (ll *LinkedList) DeleteNode() {}
 
 func (ll *LinkedList) SearchNode() {}
+
+func (ll *LinkedList) ReverseALinkedList(linkedList *LinkedList) {
+	// reversedList := NewLinkedList(0) // create empty linkedlist.
+	// currentNode := reversedList.Head
+}
